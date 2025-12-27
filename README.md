@@ -1,67 +1,73 @@
-📊 Müşteri Davranış Analizi ve Segmentasyonu (RFM & K-Means)
-Bu proje, bir e-ticaret şirketinin müşterilerini satın alma alışkanlıklarına göre gruplara ayırmak (segmentasyon) ve pazarlama stratejileri geliştirmek amacıyla hazırlanmıştır. Projede hem kural tabanlı RFM Analizi hem de yapay zeka tabanlı K-Means Kümeleme (Clustering) algoritmaları kullanılmıştır.
+# Müşteri Davranış Analizi ve Segmentasyonu (RFM & K-Means)
 
-🎯 Projenin Amacı
-Şirketin "kime, nasıl satış yapmalı?" sorusuna veri odaklı cevap bulmak.
+Bu proje, Python ve Makine Öğrenmesi teknikleri kullanılarak bir e-ticaret şirketinin müşterilerini davranışlarına göre gruplara ayırmayı (segmentasyon) ve her grup için özel pazarlama stratejileri geliştirmeyi hedefler.
 
-En değerli müşterileri (VIP) tespit etmek.
+Projede geleneksel **RFM Analizi** ile modern **K-Means Kümeleme (Clustering)** algoritması birlikte kullanılmıştır.
 
-Terk etme riski taşıyan müşterileri belirlemek.
+---
 
-Müşteri davranışlarını matematiksel olarak modellemek.
+## 🎯 Projenin Amacı
 
-📂 Veri Seti
-Kullanılan veri seti: Online Retail II
+Şirketin pazarlama bütçesini verimli kullanabilmesi için müşterileri tanımak:
+* En çok kazandıran VIP müşterileri belirlemek.
+* Terk etme eğiliminde olan müşterileri tespit etmek.
+* Müşteri davranışlarını matematiksel verilerle modellemek.
 
-İçerik: İngiltere merkezli bir online hediyelik eşya mağazasının 2010-2011 yılları arasındaki satış verileri.
+## 📂 Veri Seti Bilgisi
 
-Boyut: ~500.000+ satır işlem verisi.
+Projede **Online Retail II** veri seti kullanılmıştır.
+* **İçerik:** İngiltere merkezli bir online hediyelik eşya mağazasının 2010-2011 yılları arasındaki gerçek satış verileri.
+* **Veri Boyutu:** Yaklaşık 500.000+ işlem satırı.
+* **Değişkenler:** Fatura Numarası, Ürün Kodu, Miktar, Fiyat, Müşteri ID, Ülke.
 
-Temel Değişkenler: Fatura No, Ürün Kodu, Miktar, Fiyat, Müşteri ID.
+---
 
-🛠️ Kullanılan Teknolojiler
-Dil: Python
+## 🚀 Proje Süreci
 
-Veri Analizi: Pandas, NumPy
+Proje aşağıdaki 4 ana aşamada gerçekleştirilmiştir:
 
-Görselleştirme: Matplotlib, Seaborn
+**1. Veri Temizliği (Data Cleaning)**
+* Eksik müşteri bilgileri (Null CustomerID) temizlendi.
+* İade işlemleri (Negatif Miktar) ve hatalı kayıtlar veri setinden çıkarıldı.
+* Analiz için gerekli olan "Toplam Harcama" (TotalPrice) sütunu oluşturuldu.
 
-Makine Öğrenmesi: Scikit-learn (K-Means, StandardScaler)
+**2. RFM Metriklerinin Çıkarılması**
+Her müşteri için üç kritik metrik hesaplandı:
+* **Recency:** Müşteri en son kaç gün önce alışveriş yaptı?
+* **Frequency:** Toplam kaç kez alışveriş yaptı?
+* **Monetary:** Şirkete toplam ne kadar kazandırdı?
 
-🚀 Proje Adımları (Neler Yaptık?)
-1. Veri Temizliği ve Hazırlık (Data Cleaning)
-Veri setindeki eksik CustomerID değerleri silindi (Kimin aldığı belli olmayan işlemler).
+**3. Veri Ön İşleme (Preprocessing)**
+* Verilerdeki uçurumları engellemek için Logaritmik Dönüşüm uygulandı.
+* Tüm veriler aynı standarta getirilmek için ölçeklendirildi (StandardScaler).
 
-İade edilen ürünler (Negatif Quantity) ve hatalı fiyatlar (0 veya negatif UnitPrice) veri setinden çıkarıldı.
+**4. Yapay Zeka ile Modelleme (K-Means)**
+* Elbow (Dirsek) yöntemi ile ideal küme sayısı 3 olarak belirlendi.
+* K-Means algoritması çalıştırılarak müşteriler davranışlarına göre 3 sınıfa ayrıldı.
 
-Analiz için toplam harcamayı gösteren TotalPrice sütunu oluşturuldu.
+---
 
-2. RFM Metriklerinin Hesaplanması
-Müşterileri analiz etmek için 3 temel metrik türetildi:
+## 📊 Analiz Sonuçları
 
-Recency (Yenilik): Müşterinin son alışverişinden bu yana geçen gün sayısı.
+Yapay zeka algoritması, müşterileri harcama ve sadakat durumuna göre 3 ana gruba ayırdı:
 
-Frequency (Sıklık): Toplam işlem sayısı.
+**🏆 Grup 1: Şampiyonlar (VIP Müşteriler)**
+* **Özellikleri:** Çok yakın zamanda alışveriş yapmış, alışveriş sıklığı yüksek ve harcama ortalaması en yüksek olan grup.
+* **Aksiyon Önerisi:** Bu müşterilere özel sadakat programları uygulanmalı, yeni ürünlere erken erişim hakkı verilmeli ve kaybedilmemeleri için VIP destek sağlanmalıdır.
 
-Monetary (Parasal Değer): Müşterinin bıraktığı toplam ciro.
+**🌟 Grup 0: Potansiyel Müşteriler**
+* **Özellikleri:** Ortalama sıklıkta gelen ve ortalama harcama yapan, geliştirilmeye açık grup.
+* **Aksiyon Önerisi:** Sepet tutarını artırıcı (Cross-sell/Up-sell) kampanyalar yapılmalı, ikinci ürüne indirim gibi fırsatlarla sadık müşteriye dönüştürülmeye çalışılmalıdır.
 
-3. Kural Tabanlı Segmentasyon (Rule-Based)
-RFM metrikleri 1-5 arasında skorlandı.
+**😴 Grup 2: Uykudakiler / Kaybedilenler**
+* **Özellikleri:** En son alışverişinin üzerinden uzun zaman geçmiş (ortalama 6 ay) ve harcama limitleri düşük olan grup.
+* **Aksiyon Önerisi:** Yüksek bütçeli reklamlar yerine, e-posta pazarlaması ile kendimizi hatırlatma çalışmaları yapılmalıdır.
 
-Müşteriler, standart RFM haritasına göre "Champions", "Hibernating", "New Customers" gibi sınıflara ayrıldı.
+---
 
-4. Makine Öğrenmesi ile Kümeleme (K-Means Clustering)
-Verilerdeki çarpıklığı gidermek için Log Transformation uygulandı.
+## 🛠️ Kullanılan Teknolojiler
 
-Farklı ölçekteki verileri (Tutar vs. Adet) dengelemek için StandardScaler kullanıldı.
-
-Elbow Yöntemi (Dirsek Metodu) ile ideal küme sayısı 3 (k=3) olarak belirlendi.
-
-K-Means algoritması ile müşteriler 3 ana gruba ayrıldı.
-
-📊 Sonuçlar ve Çıkarımlar
-Proje sonucunda müşteriler davranışlarına göre 3 ana kümeye (Cluster) ayrılmıştır:
-Küme	Tanım	Özellikler	Aksiyon Önerisi
-Grup 1 (VIP / Sadık)	Şampiyonlar	Yakın zamanda gelmiş, çok sık alışveriş yapmış ve ortalama sepet tutarı çok yüksek (~7.750 Birim).	Özel sadakat programları, erken erişim hakları ve VIP müşteri desteği sağlanmalı.
-Grup 0 (Potansiyel)	Gelişime Açık	Ortalama sıklıkta gelen ve harcama yapan kitle.	Sepet tutarını artırıcı (Cross-sell/Up-sell) kampanyalar ve indirimler sunulmalı.
-Grup 2 (Kaybedilenler)	Uykudakiler	Uzun süredir siteye uğramayan (~171 gün) ve geçmişte az harcama yapmış kitle.	Sadece maliyeti düşük e-posta pazarlaması ile kendimizi hatırlatma yapılmalı.
+* **Dil:** Python 3
+* **Veri İşleme:** Pandas, NumPy
+* **Görselleştirme:** Matplotlib, Seaborn
+* **Makine Öğrenmesi:** Scikit-learn (K-Means, StandardScaler)
